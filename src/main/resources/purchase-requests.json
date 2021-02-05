@@ -1,0 +1,24 @@
+[{
+  "userName" : "Melanie@gmail.com",
+  "articles" : [ {
+    "productId" : 1,
+    "discount" : 10,
+    "quantity" : 1
+  }, {
+    "productId" : 2,
+    "discount" : 1,
+    "quantity" : 2
+  } ]
+},
+{
+  "userName" : "Miguel@gmail.com",
+  "articles" : [ {
+    "productId" : 1,
+    "discount" : 10,
+    "quantity" : 1
+  }, {
+    "productId" : 2,
+    "discount" : 1,
+    "quantity" : 2
+  } ]
+}]

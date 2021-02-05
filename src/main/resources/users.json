@@ -1,0 +1,32 @@
+[
+{
+  "name" : "Melanie",
+  "surname" : "Salzman",
+  "birthdate" : "28 de Marzo",
+  "userName" : "melaniesalzman",
+  "address" : {
+    "street" : "150",
+    "number" : 332,
+    "city" : "Berazategui",
+    "province" : "Buenos Aires",
+    "country" : "Argentina",
+    "postalCode" : "1882"
+  },
+  "phoneNumber" : "1231343434"
+},
+  {
+  "name" : "Pepe",
+  "surname" : "Salzman",
+  "birthdate" : "28 de Marzo",
+  "userName" : "melaniesalzman",
+  "address" : {
+    "street" : "150",
+    "number" : 332,
+    "city" : "Berazategui",
+    "province" : "Cordoba",
+    "country" : "Argentina",
+    "postalCode" : "1882"
+  },
+  "phoneNumber" : "1231343434"
+}
+]
