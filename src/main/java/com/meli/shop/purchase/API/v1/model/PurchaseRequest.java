@@ -1,4 +1,6 @@
-package com.meli.shop.purchase.API.v1.Model;
+package com.meli.shop.purchase.API.v1.model;
+
+import com.meli.shop.purchase.API.v1.DTO.purchase.PurchaseArticleDTO;
 
 import java.util.ArrayList;
 
@@ -28,5 +30,13 @@ public class PurchaseRequest {
     }
 
     public PurchaseRequest() {
+    }
+
+    @Override
+    public String toString() {
+        return "PurchaseRequest{" +
+                "userName='" + userName + '\'' +
+                ", articles=" + articles +
+                '}';
     }
 }

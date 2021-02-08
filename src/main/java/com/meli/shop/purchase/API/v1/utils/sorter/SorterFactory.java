@@ -3,7 +3,7 @@ package com.meli.shop.purchase.API.v1.utils.sorter;
 import java.io.FileReader;
 import java.util.Properties;
 
-public class MiFactory {
+public class SorterFactory {
 
     public static Object getInstance(String objName) throws Exception {
         Properties properties = new Properties();

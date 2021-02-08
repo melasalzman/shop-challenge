@@ -1,17 +1,12 @@
 package com.meli.shop.purchase.API.v1.repository.Impl;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.shop.purchase.API.v1.DTO.purchase.PurchaseArticleDTO;
-import com.meli.shop.purchase.API.v1.DTO.purchase.PurchaseRequestDTO;
+import com.meli.shop.purchase.API.v1.DTO.purchase.*;
 import com.meli.shop.purchase.API.v1.DTO.article.ArticleDTO;
-import com.meli.shop.purchase.API.v1.Model.Article;
-import com.meli.shop.purchase.API.v1.Model.ArticleRequest;
-import com.meli.shop.purchase.API.v1.Model.PurchaseRequest;
+import com.meli.shop.purchase.API.v1.model.*;
 import com.meli.shop.purchase.API.v1.repository.IPurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ResourceUtils;
 import com.meli.shop.purchase.API.v1.utils.database.IDatabase;
 
 import java.io.File;
@@ -20,6 +15,8 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Repository
 public class PurchaseRepository implements IPurchaseRepository {
@@ -28,16 +25,7 @@ public class PurchaseRepository implements IPurchaseRepository {
     private IDatabase iDatabase;
 
     public ArrayList<ArticleDTO> getAllArticles() throws IOException {
-        return getArticleDTOList(iDatabase.loadDatabase("src/main/resources/articles.json",Article.class));
-    }
-
-    private ArrayList<Article> loadArticlesDatabase() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<Article> articles = objectMapper.readValue(
-                ResourceUtils.getFile("classpath:articles.json"),
-                new TypeReference<>() {
-                });
-        return articles;
+        return getArticleDTOList(iDatabase.loadDatabase("src/main/resources/articles.json", Article.class));
     }
 
     private ArrayList<ArticleDTO> getArticleDTOList(ArrayList<Article> articles) {
@@ -51,7 +39,12 @@ public class PurchaseRepository implements IPurchaseRepository {
                     article.getPrice(),
                     article.getStock(),
                     article.getFreeShipping(),
-                    article.getReputation());
+                    article.getReputation(),
+                    article.getShippingType(),
+                    article.getFeatured(),
+                    article.getArrivesTomorrow(),
+                    article.getWithoutInterest(),
+                    article.getCondition());
             articlesDTO.add(articleDTO);
         }
         return articlesDTO;
@@ -68,22 +61,31 @@ public class PurchaseRepository implements IPurchaseRepository {
     @Override
     public void savePurchaseRequest(PurchaseRequestDTO purchaseRequestDTO) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(purchaseRequestDTO);
-        Files.write(new File("src/main/resources/purchase-requests.json").toPath(), Arrays.asList(json), StandardOpenOption.APPEND);
+        ArrayList<PurchaseRequestDTO> purchases = new ArrayList<>();
+        for (PurchaseRequestDTO purchase : getAllPurchaseRequest()) {
+            purchases.add(purchase);
+        }
+        purchases.add(purchaseRequestDTO);
+        String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(purchases);
+        Files.write(new File("src/main/resources/purchase-requests.json").toPath(), Arrays.asList(json));
     }
 
     @Override
     public ArrayList<PurchaseRequestDTO> getAllPurchaseRequest() throws IOException {
-        return getPurchaseRequestDTOList(iDatabase.loadDatabase("src/main/resources/purchase-requests.json",PurchaseRequest.class));
+        ArrayList<PurchaseRequestDTO> purchasesRequest = getPurchaseRequestDTOList(iDatabase.loadDatabase("src/main/resources/purchase-requests.json", PurchaseRequest.class));
+        return purchasesRequest;
     }
 
-    private ArrayList<PurchaseRequest> loadPurchaseRequestDatabase() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<PurchaseRequest> purchaseRequests = objectMapper.readValue(
-                ResourceUtils.getFile("classpath:purchase-requests.json"),
-                new TypeReference<>() {
-                });
-        return purchaseRequests;
+    @Override
+    public ArrayList<PurchaseRequestDTO> getPurchaseRequestsByUserName(String username) throws IOException {
+        return (ArrayList<PurchaseRequestDTO>) getAllPurchaseRequest().stream().filter(purchase ->
+                purchase.getUserName().equals(username))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer getLastId() throws IOException {
+        return getAllPurchaseRequest().size() + 1;
     }
 
     private ArrayList<PurchaseRequestDTO> getPurchaseRequestDTOList(ArrayList<PurchaseRequest> purchaseRequests) {
@@ -91,23 +93,23 @@ public class PurchaseRepository implements IPurchaseRepository {
         for (PurchaseRequest purchaseRequest : purchaseRequests) {
             PurchaseRequestDTO purchaseRequestDTO = new PurchaseRequestDTO(
                     purchaseRequest.getUserName(),
-                    getPurchaseArticleDTOList(purchaseRequest.getArticles())
+                    getArticlesRequestDTO(purchaseRequest.getArticles())
             );
             purchaseRequestsDTO.add(purchaseRequestDTO);
         }
         return purchaseRequestsDTO;
     }
 
-    private ArrayList<PurchaseArticleDTO> getPurchaseArticleDTOList(ArrayList<ArticleRequest> purchaseArticle) {
+    private ArrayList<PurchaseArticleDTO> getArticlesRequestDTO(ArrayList<ArticleRequest> articlesRequest) {
         ArrayList<PurchaseArticleDTO> purchaseArticlesDTO = new ArrayList<>();
-        for (ArticleRequest article : purchaseArticle) {
+        for (ArticleRequest articleRequest : articlesRequest) {
             PurchaseArticleDTO purchaseArticleDTO = new PurchaseArticleDTO(
-                    article.getProductId(), article.getDiscount(), article.getQuantity()
+                    articleRequest.getProductId(),
+                    articleRequest.getDiscount(),
+                    articleRequest.getQuantity()
             );
             purchaseArticlesDTO.add(purchaseArticleDTO);
         }
         return purchaseArticlesDTO;
     }
-
-
 }

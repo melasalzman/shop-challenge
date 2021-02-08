@@ -1,7 +1,5 @@
 package com.meli.shop.purchase.API.v1.DTO.user;
 
-import com.meli.shop.purchase.API.v1.DTO.user.UserDTO;
-
 import java.util.ArrayList;
 
 public class AllUserDTO {

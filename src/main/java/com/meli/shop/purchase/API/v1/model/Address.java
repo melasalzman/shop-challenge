@@ -1,4 +1,4 @@
-package com.meli.shop.purchase.API.v1.Model;
+package com.meli.shop.purchase.API.v1.model;
 
 public class Address {
     private String street;

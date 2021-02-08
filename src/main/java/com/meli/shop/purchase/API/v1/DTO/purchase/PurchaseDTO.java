@@ -1,18 +1,28 @@
 package com.meli.shop.purchase.API.v1.DTO.purchase;
 
 public class PurchaseDTO {
-    private Double totalPrice;
+    private ReceiptDTO receipt;
+    private StatusCodeDTO statusCode;
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public ReceiptDTO getReceipt() {
+        return receipt;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setReceipt(ReceiptDTO receipt) {
+        this.receipt = receipt;
     }
 
-    public PurchaseDTO(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public StatusCodeDTO getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(StatusCodeDTO statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public PurchaseDTO(ReceiptDTO receipt, StatusCodeDTO statusCode) {
+        this.receipt = receipt;
+        this.statusCode = statusCode;
     }
 
     public PurchaseDTO() {

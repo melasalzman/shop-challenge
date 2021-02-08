@@ -1,11 +1,9 @@
 package com.meli.shop.purchase.API.v1.service;
 
 import com.meli.shop.purchase.API.v1.DTO.article.ArticleFilterDTO;
-import com.meli.shop.purchase.API.v1.DTO.article.ArticleDTO;
 import com.meli.shop.purchase.API.v1.DTO.article.ArticlesDTO;
-
-import java.util.ArrayList;
+import com.meli.shop.purchase.API.v1.exception.article.NoDataFoundException;
 
 public interface IArticlesService {
-    ArticlesDTO getArticles(ArticleFilterDTO articleFilterDTO) throws Exception;
+    ArticlesDTO getArticles(ArticleFilterDTO articleFilterDTO) throws Exception, NoDataFoundException;
 }

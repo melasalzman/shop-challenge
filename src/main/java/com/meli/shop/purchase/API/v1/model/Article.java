@@ -1,6 +1,6 @@
-package com.meli.shop.purchase.API.v1.DTO.article;
+package com.meli.shop.purchase.API.v1.model;
 
-public class ArticleDTO {
+public class Article {
     private Integer productId;
     private String name;
     private String category;
@@ -119,9 +119,9 @@ public class ArticleDTO {
         this.condition = condition;
     }
 
-    public ArticleDTO(Integer productId, String name, String category, String brand, Double price,
-                      Integer stock, Boolean freeShipping, Double reputation, String shippingType,
-                      Boolean featured, Boolean arrivesTomorrow, Boolean withoutInterest, String condition) {
+    public Article(Integer productId, String name, String category, String brand, Double price,
+                   Integer stock, Boolean freeShipping, Double reputation, String shippingType,
+                   Boolean featured, Boolean arrivesTomorrow, Boolean withoutInterest, String condition) {
         this.productId = productId;
         this.name = name;
         this.category = category;
@@ -137,6 +137,6 @@ public class ArticleDTO {
         this.condition = condition;
     }
 
-    public ArticleDTO() {
+    public Article() {
     }
 }

@@ -4,7 +4,6 @@ import com.meli.shop.purchase.API.v1.repository.IUserRepository;
 import com.meli.shop.purchase.API.v1.service.IUserService;
 import com.meli.shop.purchase.API.v1.DTO.user.UserDTO;
 import com.meli.shop.purchase.API.v1.DTO.user.UserFilterDTO;
-import com.meli.shop.purchase.API.v1.DTO.user.AllUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,23 +18,23 @@ public class UserService implements IUserService {
     private IUserRepository iUserRepository;
 
     @Override
-    public void createUser(UserDTO userDTO) throws IOException {
+    public void createUser(UserDTO userDTO) throws Exception {
         iUserRepository.saveUser(userDTO);
     }
 
     @Override
-    public AllUserDTO getAllUsers(UserFilterDTO userFilterDTO) throws IOException {
+    public ArrayList<UserDTO> getAllUsers(UserFilterDTO userFilterDTO) throws IOException {
         return filterUsersByProvince(iUserRepository.getAllUsers(), userFilterDTO.getProvince());
     }
 
-    private AllUserDTO filterUsersByProvince(AllUserDTO allUsers, String province) {
+    private ArrayList<UserDTO> filterUsersByProvince(ArrayList<UserDTO> users, String province) {
         if (province != null) {
-            allUsers.setUsers((ArrayList<UserDTO>) allUsers.getUsers().stream()
+            users = (ArrayList<UserDTO>) users.stream()
                     .filter(user ->
                             user.getAddress().getProvince()
                                     .toLowerCase(Locale.ROOT)
-                                    .equals(province.toLowerCase(Locale.ROOT))).collect(Collectors.toList()));
+                                    .equals(province.toLowerCase(Locale.ROOT))).collect(Collectors.toList());
         }
-        return allUsers;
+        return users;
     }
 }

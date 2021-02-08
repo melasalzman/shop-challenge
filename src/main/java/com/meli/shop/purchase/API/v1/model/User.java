@@ -1,13 +1,22 @@
-package com.meli.shop.purchase.API.v1.Model;
+package com.meli.shop.purchase.API.v1.model;
 
 
 public class User {
+    private Integer id;
     private String name;
     private String surname;
     private String birthdate;
     private String userName;
     private Address address;
     private String phoneNumber;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -57,7 +66,8 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public User(String name, String surname, String birthdate, String userName, Address address, String phoneNumber) {
+    public User(Integer id, String name, String surname, String birthdate, String userName, Address address, String phoneNumber) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.birthdate = birthdate;

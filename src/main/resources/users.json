@@ -1,32 +1,46 @@
-[
-{
+[ {
+  "id" : 1,
   "name" : "Melanie",
   "surname" : "Salzman",
-  "birthdate" : "28 de Marzo",
+  "birthdate" : "28 de marzo",
   "userName" : "melaniesalzman",
   "address" : {
-    "street" : "150",
-    "number" : 332,
+    "street" : "Calle 150",
+    "number" : 3123,
     "city" : "Berazategui",
     "province" : "Buenos Aires",
     "country" : "Argentina",
-    "postalCode" : "1882"
+    "postalCode" : "1728"
   },
-  "phoneNumber" : "1231343434"
-},
-  {
+  "phoneNumber" : "23232323232"
+}, {
+  "id" : 2,
   "name" : "Pepe",
   "surname" : "Salzman",
-  "birthdate" : "28 de Marzo",
+  "birthdate" : "28 de marzo",
   "userName" : "melaniesalzman",
   "address" : {
-    "street" : "150",
-    "number" : 332,
+    "street" : "Calle 150",
+    "number" : 3123,
+    "city" : "Berazategui",
+    "province" : "Buenos Aires",
+    "country" : "Argentina",
+    "postalCode" : "1728"
+  },
+  "phoneNumber" : "23232323232"
+}, {
+  "id" : 3,
+  "name" : "Juan",
+  "surname" : "Gonzalez",
+  "birthdate" : "28 de marzo",
+  "userName" : "melaniesalzman",
+  "address" : {
+    "street" : "Calle 150",
+    "number" : 3123,
     "city" : "Berazategui",
     "province" : "Cordoba",
     "country" : "Argentina",
-    "postalCode" : "1882"
+    "postalCode" : "1728"
   },
-  "phoneNumber" : "1231343434"
-}
-]
+  "phoneNumber" : "23232323232"
+} ]
